@@ -19,26 +19,26 @@ expected worst-case time complexity is O(log(N));
 expected worst-case space complexity is O(1).
  */
 
-function solution (N) {
-    var maximumSequence = 0,
-        currentSequence = 0
-        firstSetBit = false;
-
-    while(N > 0){
-        if(N & 1){
-            firstSetBit = true;
-            currentSequence = 0;
-        }else{
-            currentSequence++;
-        }
-
-        if(currentSequence > maximumSequence && firstSetBit){
-            maximumSequence = currentSequence
-        }
-
-        N = N >> 1;
-    }
+function lengthOfMaximumSequence(N, firstSetBit, currentSequence, maximumSequence) {
+  if (N === 0)
     return maximumSequence;
+
+  if (N & 1) {
+    firstSetBit = true;
+    currentSequence = 0;
+  } else {
+    currentSequence++;
+  }
+
+  if (currentSequence > maximumSequence && firstSetBit) {
+    maximumSequence = currentSequence;
+  }
+  N = N >> 1;
+  return lengthOfMaximumSequence(N, firstSetBit, currentSequence, maximumSequence);
+}
+
+function solution(N) {
+  return lengthOfMaximumSequence(N, false, 0, 0)
 }
 
 
