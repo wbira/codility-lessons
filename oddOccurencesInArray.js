@@ -34,10 +34,10 @@ expected worst-case time complexity is O(N);
 expected worst-case space complexity is O(1), beyond input storage (not counting the storage required for input arguments).
 Elements of input arrays can be modified. */
 
+function xorReducer(previousXorResult, currentItem){
+    return previousXorResult ^ currentItem;
+}
+
 function solution(A) {
-		var result = 0;
-    for(var i = 0; i < A.length; i++){
-    	result = result ^ A[i];
-    }
-    return result;
+    return A.reduce(xorReducer);
 }
