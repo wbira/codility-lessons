@@ -52,21 +52,18 @@ function sumArrayElements(array) {
 
 
 function solution(inputArray) {
-  var leftSum = sumArrayElements(inputArray),
-    rightSum = 0,
-    currentIndex = inputArray.length,
-    smallestDifference = Number.MAX_VALUE,
-    minimalDifferenceIndex = currentIndex;
-
-  while (currentIndex--) {
-    let currentElement = inputArray[currentIndex];
-    leftSum -= currentElement;
-    rightSum += currentElement;
-
-    let currentDiffrence = Math.abs(leftSum - rightSum);
-    if (currentDiffrence < smallestDifference) {
-      smallestDifference = currentDiffrence;
-    }
-  }
-  return smallestDifference;
+	var head = inputArray[0];
+  		tail = sumArrayElements(inputArray) - head,
+      smallest = Math.abs(head - tail);
+      
+  for(let i = 1; i < inputArray.length -1; i++){
+  		let currentValue = inputArray[i];
+  		head += currentValue;
+      tail -= currentValue;
+      let difference = Math.abs(head - tail);      
+      if(difference < smallest){
+      	smallest = difference
+      }
+  }  
+  return smallest;
 }
