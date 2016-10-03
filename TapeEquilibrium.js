@@ -45,25 +45,27 @@ expected worst-case space complexity is O(N), beyond input storage (not counting
 */
 
 function sumArrayElements(array) {
-  return array.reduce(function arraySummer(sum, currentValue) {
-    return sum + currentValue;
-  })
+    return array.reduce(function arraySummer(sum, currentValue) {
+        return sum + currentValue;
+    })
 }
 
+function findSmallestDifference(head, tailSum) {
+    return function reducer(smallestDifference, currenValue) {
+        head += currenValue;
+        tailSum -= currenValue;
+        let difference = Math.abs(head - tailSum);
+        if (difference < smallestDifference) {
+            smallestDifference = difference;
+        }
+        return smallestDifference;
+    };
+}
 
 function solution(inputArray) {
-	var head = inputArray[0];
-  		tail = sumArrayElements(inputArray) - head,
-      smallest = Math.abs(head - tail);
-      
-  for(let i = 1; i < inputArray.length -1; i++){
-  		let currentValue = inputArray[i];
-  		head += currentValue;
-      tail -= currentValue;
-      let difference = Math.abs(head - tail);      
-      if(difference < smallest){
-      	smallest = difference
-      }
-  }  
-  return smallest;
+    var [head, ...restElements] = inputArray,
+        tailSum = sumArrayElements(restElements),
+        smallestDifference = Math.abs(head - tailSum);
+    restElements.pop();
+    return restElements.reduce(findSmallestDifference(head, tailSum), smallestDifference);
 }
